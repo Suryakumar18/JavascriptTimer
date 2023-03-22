@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="javascript.js"></script>
+    <title>Stop Watch</title>
+</head>
+<body>
+    <div id="timer">00:00:00</div>
+<div class="button">
+<button id="start" onclick="start()">Start</button>
+<button id="reset" onclick="reset()">Reset</button>
+</div>
+</body>
+</html>
+
+
+<style>
+    body{
+    background:rgb(68, 68, 63);
+  }
+  #timer{
+    font-size:50px;
+    text-align:center;
+    margin-top:100px;
+    color: white;
+  }
+  #start,#reset{
+    background-color:white;
+    border: 2px solid blue;
+    width:100px;
+    height:30px;
+    margin:5px;
+    border-radius:10px;
+    font-weight:bold;
+     text-align:center;
+  }
+  .button{
+    text-align:center;
+    margin:10px;
+  }
+  #start:hover,#reset:hover{
+   cursor: pointer;
+  }
+</style>
+
+<script>
+    var hour=0,sec=0,min=0;
+var dispHour=0,dispMin=0,dispSec=0;
+var timeoutId=null;
+var check="stop";
+
+function timer(){
+  sec++;
+  if(sec/60==1){
+    min++;
+    sec=0;
+  if(min/60==1){
+    hour++;
+    min=0;
+  }}
+    if(sec<10){ dispSec="0"+sec.toString(); }
+    else{ dispSec=sec.toString(); }
+   if(min<10){ dispMin="0"+min.toString(); }
+   else{ dispMin=min.toString(); }
+   if(hour<10){ dispHour="0"+hour.toString(); }
+   else{ dispHour=hour.toString(); }
+  document.getElementById("timer").innerHTML=dispHour+":"+dispMin+":"+dispSec;
+}
+
+function start(){
+    if(check==="stop"){
+        timeoutId=window.setInterval(timer,1000);
+        document.getElementById("start").innerHTML="Stop"; 
+        check="start";
+    }else{
+    window.clearInterval(timeoutId);
+    document.getElementById("start").innerHTML="Start";
+    check="stop";
+}}
+
+function reset(){
+    window.clearInterval(timeoutId);
+    sec=0,min=0,hour=0;
+    document.getElementById("timer").innerHTML="00:00:00";
+    document.getElementById("start").innerHTML="Start";
+}
+</script>
